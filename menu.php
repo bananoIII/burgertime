@@ -1,41 +1,9 @@
 <?php
-  $burgers = array(
-    array("id"=>1,"nombre"=>"","descripcion"=>"","precio"=>"","url"=>"","img"=>""),
-    array("id"=>2,"nombre"=>"","descripcion"=>"","precio"=>"","url"=>"","img"=>""),
-    array("id"=>3,"nombre"=>"","descripcion"=>"","precio"=>"","url"=>"","img"=>""),
-    array("id"=>4,"nombre"=>"","descripcion"=>"","precio"=>"","url"=>"","img"=>""),
-    array("id"=>5,"nombre"=>"","descripcion"=>"","precio"=>"","url"=>"","img"=>""),
-    array("id"=>6,"nombre"=>"","descripcion"=>"","precio"=>"","url"=>"","img"=>""),
-    array("id"=>7,"nombre"=>"","descripcion"=>"","precio"=>"","url"=>"","img"=>""),
-    array("id"=>8,"nombre"=>"","descripcion"=>"","precio"=>"","url"=>"","img"=>"")
-    
-  );
-$sodas = array(
-  array("id"=>1,"nombre"=>"","descripcion"=>"","precio"=>"","url"=>"","img"=>""),
-  array("id"=>2,"nombre"=>"","descripcion"=>"","precio"=>"","url"=>"","img"=>""),
-  array("id"=>3,"nombre"=>"","descripcion"=>"","precio"=>"","url"=>"","img"=>""),
-  array("id"=>4,"nombre"=>"","descripcion"=>"","precio"=>"","url"=>"","img"=>""),
-  array("id"=>5,"nombre"=>"","descripcion"=>"","precio"=>"","url"=>"","img"=>""),
-  array("id"=>6,"nombre"=>"","descripcion"=>"","precio"=>"","url"=>"","img"=>""),
-  array("id"=>7,"nombre"=>"","descripcion"=>"","precio"=>"","url"=>"","img"=>""),
-  array("id"=>8,"nombre"=>"","descripcion"=>"","precio"=>"","url"=>"","img"=>"")
-  
-);
-$sides = array(
-  array("id"=>1,"nombre"=>"","descripcion"=>"","precio"=>"","url"=>"","img"=>""),
-  array("id"=>2,"nombre"=>"","descripcion"=>"","precio"=>"","url"=>"","img"=>""),
-  array("id"=>3,"nombre"=>"","descripcion"=>"","precio"=>"","url"=>"","img"=>""),
-  array("id"=>4,"nombre"=>"","descripcion"=>"","precio"=>"","url"=>"","img"=>""),
-  array("id"=>5,"nombre"=>"","descripcion"=>"","precio"=>"","url"=>"","img"=>""),
-  array("id"=>6,"nombre"=>"","descripcion"=>"","precio"=>"","url"=>"","img"=>""),
-  array("id"=>7,"nombre"=>"","descripcion"=>"","precio"=>"","url"=>"","img"=>""),
-  array("id"=>8,"nombre"=>"","descripcion"=>"","precio"=>"","url"=>"","img"=>"")
-  
-);
-echo "<pre>";
-print_r($burger);
+$mysql = new PDO('mysql:host =localhost;dbname=burger', "burger", "1234");
+	$gsent = $mysql->prepare("select id_burger,nombre,descripcion, precio, img from burger");
+	$gsent->execute();
+	$burgers = $gsent->fetchAll(PDO::FETCH_ASSOC);
 
-die();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -224,187 +192,34 @@ die();
             <div class="tab-content">
               <div id="tab-1" class="tab-pane fade show p-0 active">
                 <div class="row g-4">
-                  <div class="col-lg-6">
-                    <div class="d-flex align-items-center">
-                      <img
-                        class="flex-shrink-0 img-fluid rounded"
-                        src="img/hamburguesa-1.jpeg"
-                        alt=""
-                        style="width: 80px"
-                      />
-                      <div class="w-100 d-flex flex-column text-start ps-4">
-                        <h5
-                          class="d-flex justify-content-between border-bottom pb-2"
-                        >
-                          <span>Hamburguesa Clásica</span>
-                          <span class="text-primary">$110</span>
-                        </h5>
-                        <small class="fst-italic"
-                          >Clásica hamburguesa con una carne gruesa, bien
-                          sasonada y vegetales frescos.</small
-                        >
-                      </div>
-                    </div>
-                  </div>
+
                   <?php 
-                    foreach($burger as $burger):
-
-
-endforeach;
+                    foreach($burgers as $burger):
+                      $var = '                  <div class="col-lg-6">
+                        <div class="d-flex align-items-center">
+                          <img
+                            class="flex-shrink-0 img-fluid rounded"
+                            src="img/'.$burger['img'].'"
+                            alt=""
+                            style="width: 80px"
+                          />
+                          <div class="w-100 d-flex flex-column text-start ps-4">
+                            <h5
+                              class="d-flex justify-content-between border-bottom pb-2"
+                            >
+                              <span>'.$burger['nombre'].'</span>
+                              <span class="text-primary">$'.$burger['precio'].'</span>
+                            </h5>
+                            <small class="fst-italic"
+                              >'.$burger['descripcion'].'</small
+                            >
+                          </div>
+                        </div>
+                      </div>';
+                      echo $var;
+                    endforeach;
                   ?>
-                  <div class="col-lg-6">
-                    <div class="d-flex align-items-center">
-                      <img
-                        class="flex-shrink-0 img-fluid rounded"
-                        src="img/hamburguesa-2.jpeg"
-                        alt=""
-                        style="width: 80px"
-                      />
-                      <div class="w-100 d-flex flex-column text-start ps-4">
-                        <h5
-                          class="d-flex justify-content-between border-bottom pb-2"
-                        >
-                          <span>Hamburguesa de pollo</span>
-                          <span class="text-primary">$130</span>
-                        </h5>
-                        <small class="fst-italic"
-                          >Definida por una gruesa pieza de pollo, empanizada y
-                          muy jugosa.</small
-                        >
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-6">
-                    <div class="d-flex align-items-center">
-                      <img
-                        class="flex-shrink-0 img-fluid rounded"
-                        src="img/hamburguesa-3.jpeg"
-                        alt=""
-                        style="width: 80px"
-                      />
-                      <div class="w-100 d-flex flex-column text-start ps-4">
-                        <h5
-                          class="d-flex justify-content-between border-bottom pb-2"
-                        >
-                          <span>Hamburguesa de lujo</span>
-                          <span class="text-primary">$170</span>
-                        </h5>
-                        <small class="fst-italic"
-                          >Con un par de carnes, se define como una de las
-                          mejores opciones.</small
-                        >
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-6">
-                    <div class="d-flex align-items-center">
-                      <img
-                        class="flex-shrink-0 img-fluid rounded"
-                        src="img/hamburguesa-4.jpeg"
-                        alt=""
-                        style="width: 80px"
-                      />
-                      <div class="w-100 d-flex flex-column text-start ps-4">
-                        <h5
-                          class="d-flex justify-content-between border-bottom pb-2"
-                        >
-                          <span>Hamburguesa con triple queso</span>
-                          <span class="text-primary">$140</span>
-                        </h5>
-                        <small class="fst-italic"
-                          >Parmesano, gouda y americano hacen una perfecta
-                          combinación.</small
-                        >
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-6">
-                    <div class="d-flex align-items-center">
-                      <img
-                        class="flex-shrink-0 img-fluid rounded"
-                        src="img/hamburguesa-5.jpeg"
-                        alt=""
-                        style="width: 80px"
-                      />
-                      <div class="w-100 d-flex flex-column text-start ps-4">
-                        <h5
-                          class="d-flex justify-content-between border-bottom pb-2"
-                        >
-                          <span>Hamburguesa con champiñones</span>
-                          <span class="text-primary">$115</span>
-                        </h5>
-                        <small class="fst-italic"
-                          >Hamburguesa con los champiñones más frescos, para un
-                          extra de sabor.</small
-                        >
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-6">
-                    <div class="d-flex align-items-center">
-                      <img
-                        class="flex-shrink-0 img-fluid rounded"
-                        src="img/hamburguesa-6.jpeg"
-                        alt=""
-                        style="width: 80px"
-                      />
-                      <div class="w-100 d-flex flex-column text-start ps-4">
-                        <h5
-                          class="d-flex justify-content-between border-bottom pb-2"
-                        >
-                          <span>Hamburguesa de pescado</span>
-                          <span class="text-primary">$120</span>
-                        </h5>
-                        <small class="fst-italic"
-                          >Con un grueso filete de pescado, realza la
-                          frescura.</small
-                        >
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-6">
-                    <div class="d-flex align-items-center">
-                      <img
-                        class="flex-shrink-0 img-fluid rounded"
-                        src="img/hamburguesa-7.jpeg"
-                        alt=""
-                        style="width: 80px"
-                      />
-                      <div class="w-100 d-flex flex-column text-start ps-4">
-                        <h5
-                          class="d-flex justify-content-between border-bottom pb-2"
-                        >
-                          <span>Hamburguesa Premium</span>
-                          <span class="text-primary">$200</span>
-                        </h5>
-                        <small class="fst-italic"
-                          >La opción para los más exigentes, con los
-                          ingredientes de mejor calidad.</small
-                        >
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-6">
-                    <div class="d-flex align-items-center">
-                      <img
-                        class="flex-shrink-0 img-fluid rounded"
-                        src="img/hamburguesa-8.jpeg"
-                        alt=""
-                        style="width: 80px"
-                      />
-                      <div class="w-100 d-flex flex-column text-start ps-4">
-                        <h5
-                          class="d-flex justify-content-between border-bottom pb-2"
-                        >
-                          <span>Hamburguesa Tex-Mex</span>
-                          <span class="text-primary">$130</span>
-                        </h5>
-                        <small class="fst-italic"
-                          >Hamburguesa con un sazón mexicano.</small
-                        >
-                      </div>
-                    </div>
-                  </div>
+
                 </div>
               </div>
               <div id="tab-2" class="tab-pane fade show p-0">
